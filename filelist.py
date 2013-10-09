@@ -4,6 +4,7 @@ import os
 import os.path
 
 rootdir = "E:\WorkSpace\python"
+rootdir = "D:"
 global filenum
 filenum = 0
 global dirnum
@@ -24,9 +25,10 @@ def getFileList( path ):
 	path = str( path )
 	if path == "":
 		return []
-	path = path.replace("/","\\")
+	# path = path.replace("/","\\")
 	if path[-1] != "\\":
 		path = path+"\\"
+	print path
 	list = os.listdir( path )
 	result = [x for x in list if os.path.isfile( path+x ) ]
 	return result
@@ -47,18 +49,15 @@ def test(path, offsets):
 		filelist = getFileList(path)
 		dirlist = getDirList(path)
 		dir = os.path.abspath(path)
-		print "<br>\t%s %s" %(offsets,path)
 		fp.write("<br>\t\t\t%s %s\n" %(offsets,os.path.basename(path)) )
 		offsets = "│   " + offsets
 		
 		for file in filelist:
-			print "<br>%s %s (%s)\n" %(offsets, file, humSize(os.path.getsize(dir+"\\"+file)))
 			fp.write("<br>\t\t\t%s %s (%s)\n" %(offsets, file, humSize(os.path.getsize(dir+"\\"+file))))
 			filenum += 1
-				
-		dir = os.path.abspath(path)
-		for x in dirlist:
-			test(dir+"\\"+x, offsets) 
+
+		for xx in dirlist:
+			test(dir+"\\"+xx, offsets) 
 	
 
 head = '''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -112,9 +111,6 @@ test(rootdir, "├──")
 fp.write("</p><p>%d个文件夹，%d个文件<br><br></p>" %(dirnum, filenum))
 fp.write(tail)
 fp.close
-
-print filenum
-print dirnum
 
 fp = open("filelist.html","r")
 fp.readline()
