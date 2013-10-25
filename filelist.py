@@ -4,7 +4,7 @@
 
 import os
 import os.path
-
+ 
 def getDirInfo( path ):
 	path = str( path )
 	if path == "":
