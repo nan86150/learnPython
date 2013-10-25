@@ -36,6 +36,5 @@ def splitfile(filepath,partialsize=1024*1024*10):
 
     print 'done'
 
-
 if __name__ == '__main__':
     splitfile(r'E:\baidu download\data\data.txt',1024*1024*100)
